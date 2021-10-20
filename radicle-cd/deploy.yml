@@ -1,0 +1,50 @@
+version: '2.0'
+services:
+  radicle:
+    image: bockpilld/radicle-cd:1.0
+    env:
+      - RADICLE_REPO="https://github.com/blockpill/nextjs-starter"
+      - INSTALL_COMMAND="yarn install --frozen-lockfile" 
+      - BUILD_COMMAND="yarn build" 
+      - START_COMMAND="yarn start" 
+      - ADMIN_USERNAME="test"
+      - ADMIN_PASSWORD="testing"
+    expose:
+      - port: 3000
+        as: 80
+        to:
+          - global: true
+      -port: 8080
+        to:
+          - global: true
+      -port: 9000
+        to:
+          - global: true
+
+profiles:
+  compute:
+    radicle:
+      resources:
+        cpu:
+          units: '1'
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+  placement:
+    westcoast:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+      pricing:
+        radicle:
+          denom: uakt
+          amount: 3000
+deployment:
+  radicle:
+    westcoast:
+      profile: radicle
+      count: 1
+
