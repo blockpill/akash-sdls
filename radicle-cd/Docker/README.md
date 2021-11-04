@@ -2,7 +2,7 @@ This directory contains all the files used to build the custom Docker image.
 
 # Build Image
 ```bash
-  docker build . -t bockpilld/radicle-cd:1.0
+  docker build . -t blockpilld/radicle-cd:1.1
 ```
 
 # Run docker container locally
@@ -16,9 +16,10 @@ The following commands will run the container locally after the image has been b
   --env START_COMMAND="yarn start" \
   --env ADMIN_USERNAME="test" \
   --env ADMIN_PASSWORD="testing" \
+  --env WEBHOOK_TOKEN="WEBHOOK_TOKEN_PARAM" \
   --name client_container \
   -p 3000:3000  -p 8080:8080 -p 9000:9000 \
-  bockpilld/radicle-cd:1.0
+  blockpilld/radicle-cd:1.1
 ```
 
 ## ReactJS Test
@@ -30,9 +31,10 @@ The following commands will run the container locally after the image has been b
   --env START_COMMAND="serve -l 3000 -s build" \
   --env ADMIN_USERNAME="test" \
   --env ADMIN_PASSWORD="testing" \
+  --env WEBHOOK_TOKEN="webhooktoken" \
   --name client_container \
   -p 3000:3000  -p 8080:8080 -p 9000:9000 \
-  bockpilld/radicle-cd:1.0
+  blockpilld/radicle-cd:1.1
 ```
 
 ## Static Web Page Test
@@ -44,9 +46,10 @@ The following commands will run the container locally after the image has been b
   --env START_COMMAND="http-server -s -p 3000 ./public" \
   --env ADMIN_USERNAME="test" \
   --env ADMIN_PASSWORD="testing" \
+  --env WEBHOOK_TOKEN="webhooktoken" \
   --name client_container \
   -p 3000:3000  -p 8080:8080 -p 9000:9000 \
-  bockpilld/radicle-cd:1.0
+  blockpilld/radicle-cd:1.1
 ```
 
 # Test build-script.sh
@@ -59,6 +62,7 @@ The following commands is for testing purposes only.  It will only test the buil
   export START_COMMAND="yarn start"; \
   export ADMIN_USERNAME="test"; \
   export ADMIN_PASSWORD="testing"; \
+  export WEBHOOK_TOKEN="webhooktoken" \
   ./build-script.sh  
       
 ```
@@ -71,6 +75,7 @@ The following commands is for testing purposes only.  It will only test the buil
   export START_COMMAND="http-server -s -p 3000 ./public"; \
   export ADMIN_USERNAME="test"; \
   export ADMIN_PASSWORD="testing"; \
+  export WEBHOOK_TOKEN="webhooktoken" \
   ./build-script.sh  
 ```
 

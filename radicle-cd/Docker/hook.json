@@ -2,6 +2,20 @@
   {
     "id": "redeploy-webhook",
     "execute-command": "/deploy.sh",
-    "command-working-directory": "/"
+    "command-working-directory": "/",
+    "response-message": "Executing Redeploy Webhook...",
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "value",
+        "value": "WEBHOOK_TOKEN_PARAM",
+        "parameter":
+        {
+          "source": "url",
+          "name": "token"
+        }
+      }
+    }
   }
 ]

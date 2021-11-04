@@ -1,7 +1,7 @@
 version: '2.0'
 services:
   radicle:
-    image: bockpilld/radicle-cd:1.0
+    image: blockpilld/radicle-cd:1.1
     env:
       - RADICLE_REPO="https://github.com/blockpill/nextjs-starter"
       - INSTALL_COMMAND="yarn install --frozen-lockfile" 
@@ -9,18 +9,18 @@ services:
       - START_COMMAND="yarn start" 
       - ADMIN_USERNAME="test"
       - ADMIN_PASSWORD="testing"
+      - WEBHOOK_TOKEN="webhooktoken"
     expose:
       - port: 3000
         as: 80
         to:
           - global: true
-      -port: 8080
+      - port: 8080
         to:
           - global: true
-      -port: 9000
+      - port: 9000
         to:
           - global: true
-
 profiles:
   compute:
     radicle:
@@ -47,4 +47,3 @@ deployment:
     westcoast:
       profile: radicle
       count: 1
-

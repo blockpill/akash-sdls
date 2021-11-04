@@ -6,7 +6,7 @@ echo "BUILD_COMMAND " $BUILD_COMMAND
 echo "START_COMMAND " $START_COMMAND
 echo "ADMIN_USERNAME " $ADMIN_USERNAME
 echo "ADMIN_PASSWORD " $ADMIN_PASSWORD
-
+echo "WEBHOOK_TOKEN " $WEBHOOK_TOKEN
 eval cd /
 
 DEPLOY_STATUS="idle"
@@ -25,6 +25,8 @@ eval '
   ./deploy.sh
 '
 
+
+sed -i "s/WEBHOOK_TOKEN_PARAM/$WEBHOOK_TOKEN/g" /hook.json
 
 # Run webhook after server is started.  hook.json will re-run deploy.sh when the hook is triggered
 eval  '

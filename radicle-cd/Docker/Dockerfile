@@ -13,6 +13,7 @@ ENV BUILD_COMMAND="yarn build"
 ENV START_COMMAND="yarn start"
 ENV ADMIN_USERNAME="admin"
 ENV ADMIN_PASSWORD="password"
+ENV WEBHOOK_TOKEN="webhooktoken"
 
 WORKDIR /
 COPY /build-script.sh ./
