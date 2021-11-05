@@ -1,0 +1,21 @@
+[
+  {
+    "id": "redeploy-webhook",
+    "execute-command": "/deploy.sh",
+    "command-working-directory": "/",
+    "incoming-payload-content-type": "application/json",
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "payload-hash-sha1",
+        "secret": "WEBHOOK_SECRET_PARAM",
+        "parameter":
+        {
+          "source": "header",
+          "name": "X-Hub-Signature"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,66 @@
+version: "2.0"
+services:
+  db:
+    image: mysql/mysql-server:latest
+    env:
+      - MYSQL_ROOT_PASSWORD=PASSWORD#1
+      - MYSQL_DATABASE=DBNAME#1
+      - MYSQL_USER=DBUSER#1
+      - MYSQL_PASSWORD=PASSWORD#2
+    expose:
+      - port: 3306
+        to:
+          - service: wordpress
+  wordpress:
+    depends-on:
+      - db
+    image: zjuuu/akash-wordpress:latest
+    env:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_NAME=DBNAME#1
+      - WORDPRESS_DB_USER=DBUSER#1
+      - WORDPRESS_DB_PASSWORD=PASSWORD#2
+      - WORDPRESS_TABLE_PREFIX=wp_
+    expose:
+      - port: 80
+        to:
+          - global: true
+      - port: 443
+        to:
+          - global: true
+profiles:
+  compute:
+    wordpress:
+      resources:
+        cpu:
+          units: 1
+        memory:
+          size: 1Gi
+        storage:
+          size: 2Gi
+    db:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 512Mi
+        storage:
+          size: 512Mi
+  placement:
+    westcoast:
+      pricing:
+        wordpress:
+          denom: uakt
+          amount: 5000
+        db:
+          denom: uakt
+          amount: 5000
+deployment:
+  wordpress:
+    westcoast:
+      profile: wordpress
+      count: 1
+  db:
+    westcoast:
+      profile: db
+      count: 1

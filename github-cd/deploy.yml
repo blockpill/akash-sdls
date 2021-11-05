@@ -1,15 +1,15 @@
 version: '2.0'
 services:
-  radicle-cd:
-    image: blockpilld/radicle-cd:1.1
+  github-cd:
+    image: blockpilld/github-cd:1.3
     env:
-      - RADICLE_REPO=https://github.com/blockpill/nextjs-starter
+      - GITHUB_REPO=https://github.com/blockpill/nextjs-starter.git
       - INSTALL_COMMAND=yarn install --frozen-lockfile 
       - BUILD_COMMAND=yarn build 
       - START_COMMAND=yarn start 
       - ADMIN_USERNAME=test
       - ADMIN_PASSWORD=testing
-      - WEBHOOK_TOKEN=webhooktoken
+      - WEBHOOK_SECRET=webhooksecret
     expose:
       - port: 3000
         as: 80
@@ -23,7 +23,7 @@ services:
           - global: true
 profiles:
   compute:
-    radicle-cd:
+    github-cd:
       resources:
         cpu:
           units: '1'
@@ -39,11 +39,11 @@ profiles:
         anyOf:
           - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
       pricing:
-        radicle-cd:
+        github-cd:
           denom: uakt
           amount: 3000
 deployment:
-  radicle-cd:
+  github-cd:
     westcoast:
-      profile: radicle-cd
+      profile: github-cd
       count: 1
